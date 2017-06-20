@@ -97,7 +97,16 @@ var reviewSchema = mongoose.Schema({
 
 
 var restaurantSchema = mongoose.Schema({
-
+  name: String,
+  category: {
+    type: String,
+    enum: ['Korean', 'Barbeque', 'Casual']
+  },
+  latitude: Number,
+  longitude: Number,
+  price: Number,
+  openTime: Number,
+  closingTime: Number
 });
 
 restaurantSchema.methods.getReviews = function (restaurantId, callback){
