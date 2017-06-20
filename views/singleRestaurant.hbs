@@ -1,1 +1,45 @@
-{{! YOUR CODE HERE }}
+<h4>Name:</h4>
+<p>{{name}}</p>
+
+<h4>Price:</h4>
+<p>{{price}}</p>
+
+<h4>Category:</h4>
+<p>{{category}}</p>
+
+<h4>Rating:</h4>
+<p>{{rating}}</p>
+
+<h4>Open Time:</h4>
+<p>{{openTime}}</p>
+
+<h4>Closing Time:</h4>
+<p>{{closeTime}}</p>
+
+<img src="https://maps.googleapis.com/maps/api/staticmap?center={{lat}},{{long}}&amp;markers=color:red|{{lat}},{{long}}&amp;zoom=13&amp;size=600x300&amp;maptype=roadmap">
+
+
+<br/>
+<h2>Reviews</h2>
+
+<!-- {{#each reviews}}
+<p>{{user.displayName}}</p>
+<p>{{stars}}</p>
+<p>{{content}}</p>
+<hr />
+{{/each}} -->
+
+<form method="POST">
+<h3>Leave Review</h3>
+  <div class="form-group">
+    <label>Content</label>
+    <input type="text" name="content" class="form-control">
+  </div>
+  <div class="form-group">
+    <label>Rating</label>
+    <input type="number" name="stars" class="form-control">
+  </div>
+  <div class="form-group">
+    <button class="btn btn-success">Send</button>
+  </div>
+</form>
