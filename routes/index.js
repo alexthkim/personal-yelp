@@ -100,20 +100,6 @@ router.get("/profiles", function(req, res, next) {
 });
 
 
-router.get("/profiles", function(req, res, next) {
-  User.find({}, function(err, users) {
-    if (err) {
-      res.status(500).send("Could not retrieve users from database");
-    } else {
-      res.render("profiles", {users: users});
-    }
-  });
-});
-
-
-
-
-
 router.get('/restaurant/new', function(req, res, next) {
   res.render('newRestaurant');
 });
