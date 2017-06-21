@@ -3,7 +3,10 @@
 var express = require('express');
 var router = express.Router();
 var models = require('../models/models');
-
+var User = models.User;
+var Follow = models.Follow;
+var Restaurant = models.Restaurant;
+var Review = models.Review;
 
 module.exports = function(passport) {
 
@@ -18,6 +21,9 @@ module.exports = function(passport) {
   };
 
   router.post('/signup', function(req, res) {
+    console.log(req.body.username);
+    console.log(req.body.displayName);
+    console.log(req.body.password);
     if (!validateReq(req.body)) {
       return res.render('signup', {
         error: "Passwords don't match."
@@ -25,6 +31,7 @@ module.exports = function(passport) {
     }
     var u = new models.User({
       email: req.body.username,
+      displayName: req.body.displayName,
       password: req.body.password
     });
 
@@ -46,13 +53,35 @@ module.exports = function(passport) {
 
   // POST Login page
   router.post('/login', passport.authenticate('local'), function(req, res) {
-    res.redirect('/');
+    User.findOne({email: req.body.username, password: req.body.password}, function(err, user) {
+      if (err) {
+        res.status(500).send("User not in databse");
+      } else {
+        res.redirect("/users/" + user._id);
+      }
+    });
   });
 
   // GET Logout page
   router.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/login');
+  });
+
+  router.post("/follow/:id", function(req, res, next) {
+    User.findOne({_id: req.user._id}, function(err, user) {
+      if (err) {
+        res.status(500).send("Could not retrieve user from database");
+      } else {
+        user.follow(req.params.id, function(err, successLog) {
+          if (err) {
+            res.status(500).send("Could not retrieve user from database");
+          } else {
+            res.redirect("/profiles");
+          }
+        });
+      }
+    });
   });
 
   return router;
