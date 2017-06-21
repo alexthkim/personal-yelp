@@ -62,33 +62,47 @@ router.get('/restaurant/:id', function(req, res, next) {
   })
 });
 
+
 function timeConverter(stringTime) {
   var string = stringTime.split(":");
   return 60 * parseInt(string[0]) + parseInt(string[1]);
 }
 
+
 router.get('/users/:id', function(req, res, next) {
-  User.findOne({"_id": req.params.id}, function(err, result) {
+  User.findOne({"_id": req.params.id}, function(err, user) {
     if (err) {
-      console.log("Server Error")
+      res.status(500).send("Could not retrieve user from database");
     } else {
-      result.getFollows(function(err, allFollowers, allFollowing) {
+      user.getFollows(function(err, allFollowers, allFollowing) {
         if (err) {
-          console.log("Error getting following data")
         } else {
           res.render('singleProfile', {
-            user: result,
+            user: user,
             followers: allFollowers,
             following: allFollowing
           });
         }
-      })
+      });
     }
-  })
+  });
 });
+
+
+router.get("/profiles", function(req, res, next) {
+  User.find({}, function(err, users) {
+    if (err) {
+      res.status(500).send("Could not retrieve users from database");
+    } else {
+      res.render("profiles", {users: users});
+    }
+  });
+});
+
 
 router.get('/restaurant/new', function(req, res, next) {
   res.render('newRestaurant');
 });
+
 
 module.exports = router;

@@ -1,1 +1,12 @@
-{{! YOUR CODE HERE }}
+<h1>Profiles</h1>
+
+<ul>
+{{#each users}}
+  <a href="users/{{this._id}}"> {{this.displayName}} </a>
+  <br>
+  <form action="follow/{{this._id}}" method="post">
+    <input style="display: inline;" type="submit" value="Follow">
+  </form>
+  <br>
+{{/each}}
+</ul>
