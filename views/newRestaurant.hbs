@@ -1,4 +1,4 @@
-<form method="POST" action="/restaurants/new" style="max-width: 300px; margin: auto; margin-top: 50px; border: 0.5px solid gray; padding: 30px 30px 30px 30px">
+<form method="POST" action="/restaurant/new" style="max-width: 300px; margin: auto; margin-top: 50px; border: 0.5px solid gray; padding: 30px 30px 30px 30px">
   <h3>Add a Restaurant</h3>
   <div class="form-group">
     <label>Restaurant Name</label>
@@ -15,11 +15,11 @@
   </div>
   <div class="form-group">
     <label>Relative Price</label>
-    <select class="selectpicker" name="rating">
-      <option>Pick a Rating</option>
-      <option>1: Great</option>
-      <option>2: Decent</option>
-      <option>3: Terrible</option>
+    <select class="selectpicker" name="price">
+      <option>How Expensive is this restaurant?</option>
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
     </select>
   </div>
   <div class="form-group">
@@ -27,12 +27,12 @@
     <input type="text" name="address" class="form-control">
   </div>
   <div class="form-group">
-    <label>Open Time</label>
+    <label>Opening Time</label>
     <input type="time" name="openTime" class="form-control">
   </div>
   <div class="form-group">
-    <label>Close Time</label>
-    <input type="time" name="closeTime" class="form-control">
+    <label>Closing Time</label>
+    <input type="time" name="closingTime" class="form-control">
   </div>
   <div class="form-group">
     <button class="btn btn-success">Add Restaturant</button>

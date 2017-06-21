@@ -109,6 +109,34 @@ var restaurantSchema = mongoose.Schema({
   closingTime: Number
 });
 
+var openTimeParsed = restaurantSchema.virtual('realOpen');
+var closedTimeParsed = restaurantSchema.virtual('realClose');
+
+openTimeParsed.get(function() {
+  return readableTimeConvert(this.openTime);
+})
+
+closedTimeParsed.get(function() {
+  return readableTimeConvert(this.closingTime);
+})
+
+function readableTimeConvert(minutesTime) {
+  var minutes = minutesTime % 60;
+
+  if(minutes < 10) {
+    minutes = "0" + minutes;
+  }
+
+  var hours = Math.floor(minutesTime / 60);
+
+  if (hours > 12) {
+    hours -= 12;
+    return hours + ":" + minutes + " PM";
+  } else {
+    return hours + ":" + minutes + " AM";
+  }
+}
+
 restaurantSchema.methods.getReviews = function (restaurantId, callback){
 
 }
